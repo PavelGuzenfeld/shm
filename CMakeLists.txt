@@ -34,14 +34,8 @@ target_include_directories(${PROJECT_NAME}
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
 )
+
 target_link_libraries(${PROJECT_NAME} PRIVATE fmt exception-rt::exception-rt)
-
-# # executable and linking
-# add_executable(${PROJECT_NAME}_test test/shm_test.cpp)
-# target_link_libraries(${PROJECT_NAME}_test PRIVATE ${PROJECT_NAME} fmt)
-
-# set_debug_options(${PROJECT_NAME}_test)
-# enable_sanitizers(${PROJECT_NAME}_test)
 
 # Install public headers so that the INSTALL_INTERFACE path exists.
 install(
@@ -80,4 +74,18 @@ install(
   FILES 
     "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
   DESTINATION lib/cmake/${PROJECT_NAME}
+)
+
+# Test executable
+add_executable(${PROJECT_NAME}_test test/shm_test.cpp)
+target_link_libraries(${PROJECT_NAME}_test PRIVATE ${PROJECT_NAME} fmt)
+
+set_debug_options(${PROJECT_NAME}_test)
+enable_sanitizers(${PROJECT_NAME}_test)
+
+# Export the target
+install(
+    TARGETS ${PROJECT_NAME}_test
+    EXPORT ${PROJECT_NAME}Targets
+    DESTINATION bin
 )
