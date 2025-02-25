@@ -5,7 +5,7 @@
   <description>Cmake library</description>
   <maintainer email="pavelguzenfeld@gmail.com">Pavel Guzenfeld</maintainer>
   <license>MIT</license>
-
+  <build_depend>libfmt-dev</build_depend>
   <build_depend>cmake-library</build_depend>
   <depend>exception-rt</depend>
 </package>
