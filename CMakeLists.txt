@@ -13,6 +13,11 @@ endif()
 message(STATUS "Library will be built using CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
 
 # Build utilities
+function(set_debug_options target)
+    target_compile_options(${target} PRIVATE -g -O0)
+    target_compile_definitions(${target} PRIVATE DEBUG)
+endfunction()
+
 function(set_release_options target)
     if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         target_compile_options(${target} PRIVATE -O3)
